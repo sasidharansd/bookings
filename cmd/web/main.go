@@ -1,18 +1,18 @@
 package main
 
 import (
+	"github.com/aerosasi/bookings/internal/config"
+	"github.com/aerosasi/bookings/internal/handlers"
+	"github.com/aerosasi/bookings/internal/render"
 	"log"
 	"net/http"
 	"time"
-
-	"github.com/aerosasi/bookings/pkg/config"
-	handler "github.com/aerosasi/bookings/pkg/handlers"
-	render "github.com/aerosasi/bookings/render"
 
 	"github.com/alexedwards/scs/v2"
 )
 
 const portNumber = ":8080"
+
 var app config.AppConfig
 var session *scs.SessionManager
 
@@ -28,8 +28,8 @@ func main() {
 	session.Cookie.Secure = app.InProduction
 	app.Session = session
 
-	tc , err := render.CreateTemplateCache()
-	if err != nil{
+	tc, err := render.CreateTemplateCache()
+	if err != nil {
 		log.Printf("error in CreateTemplateCache")
 		log.Fatal(err)
 	}
@@ -40,13 +40,12 @@ func main() {
 	handler.NewHandlers(repo)
 	render.NewTemplates(&app)
 
-
 	// http.HandleFunc("/", handler.Repo.Home)
 	// http.HandleFunc("/about", handler.Repo.About)
 
 	// http.ListenAndServe(portNumber, nil)
 	srv := &http.Server{
-		Addr: portNumber,
+		Addr:    portNumber,
 		Handler: routes(&app),
 	}
 

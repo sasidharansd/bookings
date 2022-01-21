@@ -1,0 +1,60 @@
+{{template "base" .}}
+
+
+{{define "content"}}
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <img src="/static/images/majors_suite.jpg" class="img-fluid img-thumbnail  rounded room-image ">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-4">MAJOR'S SUITE</h1>
+            <p>Home away from home</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <a href="#!" id="check-availability-button" class="btn btn-success">CHECK AVAILABILITY</a>
+        </div>
+    </div>
+
+
+</div>
+
+{{end}}
+
+{{define "js"}}
+<script>
+
+    document.getElementById("check-availability-button").addEventListener("click",function (){
+        // notify("Error","Do you want to continue",'success',"cool")
+        //  attention.toast({msg:"Hello World",icon:"error",position: "top-end"});
+
+        let html = `
+<form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+    <div class="form-row">
+        <div class="col">
+            <div id="reservation-dates-modal" class="form-row">
+                <div class="col">
+                    <input disabled class="form-control" type="text" name="start" id="start" required  placeholder="Arrival Date">
+                </div>
+
+                <div class="col">
+                    <input disabled class="form-control" type="text" name="end" id="end" required placeholder="Departure Date">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+      `
+        attention.custom({msg:html, title:"Choose your dates"})
+    })
+
+</script>
+{{end}}
